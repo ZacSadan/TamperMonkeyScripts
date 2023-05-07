@@ -1,13 +1,14 @@
 // ==UserScript==
-// @name         Better Outlook/Gmail Webmail
+// @name         Better Outlook/Gmail Webmail and Trello
 // @namespace    https://www.sadan.me/
-// @version      1.98
-// @description  Better Outlook/Gmail Webmail
+// @version      1.99
+// @description  Better Outlook/Gmail Webmail and Trello
 // @author       Zac Sadan
 // @match        https://outlook.office.com/calendar/*
 // @match        https://outlook.office.com/mail/*
 // @match        https://outlook.office365.com/mail/*
 // @match        https://aaaaaaaaaaamail.google.com/*
+// @match        https://trello.com/b/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=outlook.office.com
 // @grant        none
 // ==/UserScript==
@@ -26,9 +27,10 @@ window.addEventListener('load', function()
                    try{ document.getElementById("leftPaneContainer").style.height ="calc(100% + 45px)" ; }catch(e){}
                    try{
                        var RibbonRoot= document.getElementById("RibbonRoot");
-                       RibbonRoot.parentElement.parentElement.parentElement.style.display = "none";
+                      // RibbonRoot.parentElement.parentElement.parentElement.style.display = "none";
+                        RibbonRoot.parentElement.style.display = "none";
                       }catch(e){}
-                }, 2000);
+                }, 5000);
         }
         else if (window.location.href.indexOf(".com/mail") > -1)
         {
@@ -42,6 +44,18 @@ window.addEventListener('load', function()
         else if (window.location.href.indexOf("mail.google.com/mail/u/0/") > -1)
         {
             document.getElementsByTagName("header")[0].style.backgroundColor ="#989898" ; // GRAY
+        }
+        else if (window.location.href.indexOf("https://trello.com/b/") > -1)
+        {
+            setTimeout(function()
+                {
+                var trelloElem= document.getElementsByClassName("js-pup-header-btns");
+                trelloElem[0].style.display = "none";
+                trelloElem= document.getElementsByClassName("js-board-header-subscribed");
+                trelloElem[0].style.display = "none";
+                trelloElem= document.getElementsByClassName("js-pup-dropdown-list-btn");
+                trelloElem[0].style.display = "none";
+                 }, 10000);
         }
     }
     catch(e){}
