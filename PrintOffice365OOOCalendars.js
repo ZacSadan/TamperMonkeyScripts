@@ -63,9 +63,6 @@ function appendAllNewDatesRangeToArray(startDate,endDate,subject)
 
       if ( date_key in dates_arr)
       {
-          // if value exist in key don't add it again
-          //if( ! ( subject in dates_arr[date_key]) )
-
           if ( ! dates_arr[date_key].includes(subject) )
           {
              dates_arr[date_key].push(subject);
