@@ -41,8 +41,13 @@ function printDatesArrToConsoleAsTable()
         {
             tableStr = tableStr + "#####################################################\n"; // start of month
         }
-
-        tableStr = tableStr + currentDate.toString().split(" ").slice(0,4).join(" ") + " : " + data + "\n";
+        var curDateStr = currentDate.toString().split(" ").slice(0,4).join(" ") ;
+        var weekend_str = " : ";
+        if (curDateStr.includes("Fri") || curDateStr.includes("Sat") )
+        {
+            weekend_str = " : [WEEKEND] ";
+        }
+        tableStr = tableStr + curDateStr + weekend_str + data + "\n";
         currentDate = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000); // 24 hours in milliseconds
     }
     console.log(tableStr);
