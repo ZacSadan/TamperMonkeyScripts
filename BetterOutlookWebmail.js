@@ -31,10 +31,34 @@ window.addEventListener('load', function()
                         RibbonRoot.parentElement.style.display = "none";
                       }catch(e){}
                 }, 5000);
+
+            // enable private calendars
+             setTimeout(function()
+                {
+                   try
+                   {
+                       var buttons = document.getElementsByTagName("button");
+                       for(let i = 0 ; i < buttons.length ; i++)
+                       {
+                           if ( buttons[i].title == "Calendar" && ! buttons[i].innerHTML.includes("StatusCircleCheckmark") )
+                           {
+                               buttons[i].click();
+                           }
+                           if ( buttons[i].title == "Show all" ||
+                                buttons[i].title.includes("Holidays") ||
+                                buttons[i].title.includes("Hebcal") ||
+                                buttons[i].title.includes("protected") ||
+                                buttons[i].title.includes("Weather") )
+                           {
+                               buttons[i].click();
+                           }
+                       }
+                   }catch(e){}
+                }, 20000);
         }
         else if (window.location.href.indexOf(".com/mail") > -1)
         {
-            document.getElementsByTagName("body")[0].style.zoom = "1.3";
+            document.getElementsByTagName("body")[0].style.zoom = "1.2";
             fixOutLookMailThread();
         }
         else if (window.location.href.indexOf("mail.google.com/mail/u/1/") > -1)
@@ -67,6 +91,7 @@ function fixOutLookMailThread()
     try
     {
         document.getElementsByClassName("wide-content-host")[0].style.zoom = "1.2"; // openning email
+        document.getElementsByClassName("allowTextSelection")[0].style.zoom = "1.4"; // openning email
     }
     catch(e){}
     try
