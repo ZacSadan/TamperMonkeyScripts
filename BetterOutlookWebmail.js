@@ -53,6 +53,15 @@ window.addEventListener('load', function()
                                buttons[i].click();
                            }
                        }
+                       // close calendars
+                       buttons = document.getElementsByTagName("button");
+                       for(let i = 0 ; i < buttons.length ; i++)
+                       {
+                           if ( buttons[i].innerHTML.includes("@") )
+                           {
+                               buttons[i].click();
+                           }
+                       }
                    }catch(e){}
                 }, 20000);
         }
