@@ -29,13 +29,14 @@ window.addEventListener('load', function()
         if (window.location.href.indexOf("outlook.office.com/calendar") > -1)
         {
             fixOutLookCalendar();
-            // refresh outlook calendar each 10 minutes , reload from server and not from cache ..
-            setTimeout(function(){ location.reload(true) }, 10*60*1000); // dispatchEvent(new Event('load'))
+            // refresh outlook calendar each 20 minutes , reload from server and not from cache ..
+            setTimeout(function(){ location.reload(true) }, 20*60*1000); // dispatchEvent(new Event('load'))
         }
-        else if (window.location.href.indexOf(".com/mail") > -1) // outlook mail
+        else if (window.location.href.indexOf("outlook.office.com/mail") > -1) // outlook mail
         {
             document.getElementsByTagName("body")[0].style.zoom = "1.2";
             fixOutLookMailThread();
+            //console.log("outlook.office.com/mail");
         }
         // GOOGLE SECTION
         else if (window.location.href.indexOf("calendar.google.com") > -1)
@@ -88,6 +89,9 @@ function fixOutLookMailThread()
     {
         document.getElementsByClassName("wide-content-host")[0].style.zoom = "1.2"; // openning email
         document.getElementsByClassName("allowTextSelection")[0].style.zoom = "1.4"; // openning email
+
+        document.querySelector('div[role="main"]').style.marginTop = "40px";
+
     }
     catch(e){}
     try
@@ -122,7 +126,7 @@ function fixOutLookMailThread()
                 }, 5000);
            */
             // enable private calendars
-            /*
+              /*
              setTimeout(function()
                 {
                   try
@@ -160,4 +164,5 @@ function fixOutLookMailThread()
                    try{ document.querySelector('div[role="main"]').parentNode.parentNode.style.height = "calc(100% + 45px)"; }catch(e){}
                    try{ document.getElementById("leftPaneContainer").style.height ="calc(100% + 45px)" ; }catch(e){}
 
-                }, 20000); */
+                }, 20000);
+                */
