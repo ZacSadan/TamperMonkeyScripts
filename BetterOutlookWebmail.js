@@ -10,6 +10,7 @@
 // @match        https://calendar.google.com/calendar/*
 // @match        https://aaaaaaaaaaamail.google.com/*
 // @match        https://trello.com/b/*
+// @match        https://simplex-smart3d.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=outlook.office.com
 // @grant        none
 // ==/UserScript==
@@ -30,7 +31,7 @@ window.addEventListener('load', function()
         {
             fixOutLookCalendar();
             // refresh outlook calendar each 20 minutes , reload from server and not from cache ..
-            setTimeout(function(){ location.reload(true) }, 20*60*1000); // dispatchEvent(new Event('load'))
+            //setTimeout(function(){ location.reload(true) }, 20*60*1000); // dispatchEvent(new Event('load'))
         }
         else if (window.location.href.indexOf("outlook.office.com/mail") > -1) // outlook mail
         {
@@ -64,6 +65,15 @@ window.addEventListener('load', function()
                 trelloElem[0].style.display = "none";
             }, 10000);
         }
+        else if (window.location.href.indexOf("https://simplex-smart3d.com/") > -1)
+        {
+            setTimeout(function()
+            {
+                var msgElem= document.getElementsByClassName("bg-opacity"); // subscription lighter
+                msgElem[0].style.display = "none";
+                msgElem[0].style.backgroundColor = "";
+            }, 5000);
+        }
     }
     catch(e){}
 }, false);
@@ -90,13 +100,15 @@ function fixOutLookMailThread()
         document.getElementsByClassName("wide-content-host")[0].style.zoom = "1.2"; // openning email
         document.getElementsByClassName("allowTextSelection")[0].style.zoom = "1.4"; // openning email
 
-        document.querySelector('div[role="main"]').style.marginTop = "40px";
+        //document.querySelector('div[role="main"]').style.marginTop = "-10px";
 
     }
     catch(e){}
     try
     {
         var ReadingPaneContainer= document.getElementById("ReadingPaneContainerId"); // ReadingPaneContainerId
+        ReadingPaneContainer.style.height = ""; // run over calc 130%..
+
         var divs = ReadingPaneContainer.getElementsByTagName("div");
         for (var i = 0; i < divs.length; ++i)
         {
@@ -105,6 +117,11 @@ function fixOutLookMailThread()
               divs[i].spellcheck=true;
            }
         }
+        var ConversationReadingPaneContainer= document.getElementById("ConversationReadingPaneContainer");
+        ConversationReadingPaneContainer.style.height = ""; // run over calc 130%..
+        ConversationReadingPaneContainer.style.width = "";
+        ConversationReadingPaneContainer.style.transform = "";
+
     }
     catch(e){}
     setTimeout(function(){ fixOutLookMailThread(); }, 250);
