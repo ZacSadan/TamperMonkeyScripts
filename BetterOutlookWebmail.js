@@ -31,7 +31,7 @@ window.addEventListener('load', function()
         {
             fixOutLookCalendar();
             // refresh outlook calendar each 20 minutes , reload from server and not from cache ..
-            //setTimeout(function(){ location.reload(true) }, 20*60*1000); // dispatchEvent(new Event('load'))
+            setTimeout(function(){ location.reload(true) }, 20*60*1000); // dispatchEvent(new Event('load'))
         }
         else if (window.location.href.indexOf("outlook.office.com/mail") > -1) // outlook mail
         {
@@ -88,6 +88,28 @@ function fixOutLookCalendar()
         var RibbonRoot= document.getElementById("RibbonRoot");
         RibbonRoot.parentElement.style.display = "none"; // RibbonRoot.parentElement.parentElement.parentElement.style.display = "none";
     }catch(e){}
+    try
+    {
+        var buttons = document.getElementsByTagName("button");
+        for(let i = 0 ; i < buttons.length ; i++)
+        {
+            if ( ( buttons[i].title.includes("Birthdays") || buttons[i].title.includes("OOO") ) && buttons[i].getAttribute("aria-selected")=="false" )
+            {
+                buttons[i].click();
+            }
+            else if ( ( buttons[i].title.includes("My calendars") || buttons[i].title.includes("zsadan") ) && buttons[i].getAttribute("aria-expanded")=="false" )
+            {
+                 buttons[i].click();
+            }
+            else if ( buttons[i].title.includes("Show all") )
+            {
+                 buttons[i].click();
+            }
+        }
+    }
+    catch(e){}
+
+
 
    setTimeout(function(){ fixOutLookCalendar(); }, 2000);
 }
