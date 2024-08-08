@@ -11,6 +11,7 @@
 // @match        https://aaaaaaaaaaamail.google.com/*
 // @match        https://trello.com/b/*
 // @match        https://simplex-smart3d.com/*
+// @match        https://www.yad2.co.il/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=outlook.office.com
 // @grant        none
 // ==/UserScript==
@@ -65,7 +66,7 @@ window.addEventListener('load', function()
                 trelloElem[0].style.display = "none";
             }, 10000);
         }
-        else if (window.location.href.indexOf("https://simplex-smart3d.com/") > -1)
+        /*else if (window.location.href.indexOf("https://simplex-smart3d.com/") > -1)
         {
             setTimeout(function()
             {
@@ -73,7 +74,43 @@ window.addEventListener('load', function()
                 msgElem[0].style.display = "none";
                 msgElem[0].style.backgroundColor = "";
             }, 5000);
+        }*/
+        else if ( window.location.href.includes("yad2.co.il") )
+        {
+
+            setTimeout(function()
+            {
+                var li = document.getElementsByTagName("li");
+                for(let i = 0 ; i < li.length ; i++)
+                {
+
+                    if ( li[i].innerHTML.includes("feed") )
+                    {
+                        if ( li[i].innerHTML.includes("השקד") ||
+                             li[i].innerHTML.includes("ליפקין") ||
+                             li[i].innerHTML.includes("שמיר")
+                           )
+                        {
+                            //li[i].innerHTML.includes("platinum") || li[i].innerHTML.includes("layout-feed-list-item") ||
+                            try
+                            {
+                                //console.log( li[i]);
+
+                                if ( li[i].firstChild.firstChild["data-nagish"] = "feed-item-list-box" )
+                                {
+                                  //  console.log( li[i]);
+                                   // console.log( li[i].innerHTML);
+                                    //li[i].firstChild.firstChild.style.backgroundColor = "gray"
+                                }
+                            }
+                            catch(e){}
+                        }
+                    }
+                }
+
+            }, 2000);
         }
+
     }
     catch(e){}
 }, false);
@@ -119,9 +156,11 @@ function fixOutLookMailThread()
     //console.log("fixOutLookMailThread");
     try
     {
-        document.getElementsByClassName("wide-content-host")[0].style.zoom = "1.2"; // openning email
-        document.getElementsByClassName("allowTextSelection")[0].style.zoom = "1.4"; // openning email
+        document.getElementsByClassName("wide-content-host")[0].style.zoom = "1.4"; // openning email 1.2
+        document.getElementsByClassName("allowTextSelection")[0].style.zoom = "1.4"; // openning email 1.4 //also ConversationContainer ?
 
+
+        //document.getElementById("editorParent_1").style.zoom = "1.4"
         //document.querySelector('div[role="main"]').style.marginTop = "-10px";
 
     }
@@ -130,6 +169,8 @@ function fixOutLookMailThread()
     {
         var ReadingPaneContainer= document.getElementById("ReadingPaneContainerId"); // ReadingPaneContainerId
         ReadingPaneContainer.style.height = ""; // run over calc 130%..
+
+        ReadingPaneContainer.style.zoom = "1.4"
 
         var divs = ReadingPaneContainer.getElementsByTagName("div");
         for (var i = 0; i < divs.length; ++i)
