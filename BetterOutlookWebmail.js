@@ -10,7 +10,6 @@
 // @match        https://calendar.google.com/calendar/*
 // @match        https://aaaaaaaaaaamail.google.com/*
 // @match        https://trello.com/b/*
-// @match        https://simplex-smart3d.com/*
 // @match        https://www.yad2.co.il/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=outlook.office.com
 // @grant        none
@@ -66,49 +65,9 @@ window.addEventListener('load', function()
                 trelloElem[0].style.display = "none";
             }, 10000);
         }
-        /*else if (window.location.href.indexOf("https://simplex-smart3d.com/") > -1)
-        {
-            setTimeout(function()
-            {
-                var msgElem= document.getElementsByClassName("bg-opacity"); // subscription lighter
-                msgElem[0].style.display = "none";
-                msgElem[0].style.backgroundColor = "";
-            }, 5000);
-        }*/
         else if ( window.location.href.includes("yad2.co.il") )
         {
-
-            setTimeout(function()
-            {
-                var li = document.getElementsByTagName("li");
-                for(let i = 0 ; i < li.length ; i++)
-                {
-
-                    if ( li[i].innerHTML.includes("feed") )
-                    {
-                        if ( li[i].innerHTML.includes("השקד") ||
-                             li[i].innerHTML.includes("ליפקין") ||
-                             li[i].innerHTML.includes("שמיר")
-                           )
-                        {
-                            //li[i].innerHTML.includes("platinum") || li[i].innerHTML.includes("layout-feed-list-item") ||
-                            try
-                            {
-                                //console.log( li[i]);
-
-                                if ( li[i].firstChild.firstChild["data-nagish"] = "feed-item-list-box" )
-                                {
-                                  //  console.log( li[i]);
-                                   // console.log( li[i].innerHTML);
-                                    //li[i].firstChild.firstChild.style.backgroundColor = "gray"
-                                }
-                            }
-                            catch(e){}
-                        }
-                    }
-                }
-
-            }, 2000);
+            fixYad2();
         }
 
     }
@@ -146,8 +105,6 @@ function fixOutLookCalendar()
     }
     catch(e){}
 
-
-
    setTimeout(function(){ fixOutLookCalendar(); }, 2000);
 }
 //------------------------------------------------------------------------------------------------------------------
@@ -158,11 +115,8 @@ function fixOutLookMailThread()
     {
         document.getElementsByClassName("wide-content-host")[0].style.zoom = "1.4"; // openning email 1.2
         document.getElementsByClassName("allowTextSelection")[0].style.zoom = "1.4"; // openning email 1.4 //also ConversationContainer ?
-
-
         //document.getElementById("editorParent_1").style.zoom = "1.4"
         //document.querySelector('div[role="main"]').style.marginTop = "-10px";
-
     }
     catch(e){}
     try
@@ -184,65 +138,36 @@ function fixOutLookMailThread()
         ConversationReadingPaneContainer.style.height = ""; // run over calc 130%..
         ConversationReadingPaneContainer.style.width = "";
         ConversationReadingPaneContainer.style.transform = "";
-
     }
     catch(e){}
     setTimeout(function(){ fixOutLookMailThread(); }, 250);
 }
 //------------------------------------------------------------------------------------------------------------------
-
-            /*
-            setTimeout(function()
-                {
-                   try{ document.querySelector('div[role="main"]').style.zoom = "0.65"; }catch(e){}
-                   try{ document.querySelector('div[role="main"]').parentNode.style.height = "calc(100% + 45px)"; }catch(e){}
-                   try{ document.querySelector('div[role="main"]').parentNode.parentNode.style.height = "calc(100% + 45px)"; }catch(e){}
-                   try{ document.getElementById("leftPaneContainer").style.height ="calc(100% + 45px)" ; }catch(e){}
-                   try{
-                       var RibbonRoot= document.getElementById("RibbonRoot");
-                      // RibbonRoot.parentElement.parentElement.parentElement.style.display = "none";
-                        RibbonRoot.parentElement.style.display = "none";
-                      }catch(e){}
-                }, 5000);
-           */
-            // enable private calendars
-              /*
-             setTimeout(function()
-                {
-                  try
-                   {
-                       var buttons = document.getElementsByTagName("button");
-                       for(let i = 0 ; i < buttons.length ; i++)
-                       {
-                           if ( buttons[i].title == "Calendar" && ! buttons[i].innerHTML.includes("StatusCircleCheckmark") )
-                           {
-                               buttons[i].click();
-                           }
-                           if ( buttons[i].title == "Show all" ||
-                                buttons[i].title.includes("Holidays") ||
-                                buttons[i].title.includes("Hebcal") ||
-                                buttons[i].title.includes("protected") ||
-                                buttons[i].title.includes("Weather") )
-                           {
-                               buttons[i].click();
-                           }
-                       }
-                       // close calendars
-                       buttons = document.getElementsByTagName("button");
-                       for(let i = 0 ; i < buttons.length ; i++)
-                       {
-                           if ( buttons[i].innerHTML.includes("@") )
-                           {
-                               buttons[i].click();
-                           }
-                       }
-                   }catch(e){}
-
-                   // fix zoom again ...
-                   try{ document.querySelector('div[role="main"]').style.zoom = "0.65"; }catch(e){}
-                   try{ document.querySelector('div[role="main"]').parentNode.style.height = "calc(100% + 45px)"; }catch(e){}
-                   try{ document.querySelector('div[role="main"]').parentNode.parentNode.style.height = "calc(100% + 45px)"; }catch(e){}
-                   try{ document.getElementById("leftPaneContainer").style.height ="calc(100% + 45px)" ; }catch(e){}
-
-                }, 20000);
-                */
+function fixYad2()
+{
+    const feedList = document.querySelector('ul[data-testid="feed-list"]');
+    var li = feedList.getElementsByTagName("li");
+    for(let i = 0 ; i < li.length ; i++)
+    {
+        if ( ! ( li[i].innerText.includes("השקד") ||
+                 li[i].innerText.includes("שמיר") ||
+                 li[i].innerText.includes("גור") ||
+                 li[i].innerText.includes("שחק") ||
+                 li[i].innerText.includes("רחבת אילן") ||
+                 li[i].innerText.includes("רמת הדר") ||
+                 li[i].innerText.includes("מנחם בגין") ||
+                 li[i].innerText.includes("קרן היסוד") ||
+                 li[i].innerText.includes("בארי") ||
+                 li[i].innerText.includes("החל מ-") )
+           && li[i].innerText.includes("₪")
+           )
+        {
+            try{
+                    var price = li[i].querySelector('span[data-testid="price"]');
+                    price.style.color = "red";
+            }catch(e){console.log(e)}
+        }
+    }
+    setTimeout(function(){ fixYad2(); }, 2000);
+}
+//------------------------------------------------------------------------------------------------------------------
