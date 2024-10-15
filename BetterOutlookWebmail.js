@@ -11,6 +11,7 @@
 // @match        https://aaaaaaaaaaamail.google.com/*
 // @match        https://trello.com/b/*
 // @match        https://www.yad2.co.il/*
+// @match        https://www.madlan.co.il/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=outlook.office.com
 // @grant        none
 // ==/UserScript==
@@ -69,6 +70,11 @@ window.addEventListener('load', function()
         {
             fixYad2();
         }
+        else if ( window.location.href.includes("madlan.co.il") )
+        {
+            fixMadlan();
+        }
+
 
     }
     catch(e){}
@@ -151,8 +157,8 @@ function fixYad2()
     {
         if ( ! ( li[i].innerText.includes("השקד") ||
                  li[i].innerText.includes("שמיר") ||
-                 li[i].innerText.includes("גור") ||
-                 li[i].innerText.includes("שחק") ||
+                 li[i].innerText.includes("מוטה גור") ||
+                 li[i].innerText.includes("ליפקין שחק") ||
                  li[i].innerText.includes("רחבת אילן") ||
                  li[i].innerText.includes("רמת הדר") ||
                  li[i].innerText.includes("מנחם בגין") ||
@@ -163,11 +169,40 @@ function fixYad2()
            )
         {
             try{
-                    var price = li[i].querySelector('span[data-testid="price"]');
-                    price.style.color = "red";
+                var price = li[i].querySelector('span[data-testid="price"]');
+                price.style.color = "red";
             }catch(e){console.log(e)}
         }
     }
     setTimeout(function(){ fixYad2(); }, 2000);
+}
+//------------------------------------------------------------------------------------------------------------------
+function fixMadlan()
+{
+    console.log("fixMadlan");
+    const bulletins = document.querySelectorAll('div[data-auto="listed-bulletin"]');
+    //console.log(bulletins);
+    for(let i = 0 ; i < bulletins.length ; i++)
+    {
+          if ( ! ( bulletins[i].innerText.includes("השקד") ||
+                 bulletins[i].innerText.includes("שמיר") ||
+                 bulletins[i].innerText.includes("מוטה גור") ||
+                 bulletins[i].innerText.includes("ליפקין שחק") ||
+                 bulletins[i].innerText.includes("רחבת אילן") ||
+                 //bulletins[i].innerText.includes("רמת הדר") ||
+                 bulletins[i].innerText.includes("מנחם בגין") ||
+                 bulletins[i].innerText.includes("קרן היסוד") ||
+                 bulletins[i].innerText.includes("בארי") ||
+                 bulletins[i].innerText.includes("החל מ-") )
+              && bulletins[i].innerText.includes("₪")
+            )
+        {
+            try{
+                var price = bulletins[i].querySelector('div[data-auto="property-price"]');
+                price.style.color = "red";
+            }catch(e){console.log(e)}
+        }
+    }
+    setTimeout(function(){ fixMadlan(); }, 2000);
 }
 //------------------------------------------------------------------------------------------------------------------
