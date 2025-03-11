@@ -31,8 +31,8 @@ window.addEventListener('load', function()
         if (window.location.href.indexOf("outlook.office.com/calendar") > -1)
         {
             fixOutLookCalendar();
-            // refresh outlook calendar each 20 minutes , reload from server and not from cache ..
-            setTimeout(function(){ location.reload(true) }, 20*60*1000); // dispatchEvent(new Event('load'))
+            // refresh outlook calendar each 60 minutes , reload from server and not from cache ..
+            setTimeout(function(){ location.reload(true) }, 60*60*1000); // dispatchEvent(new Event('load'))
         }
         else if (window.location.href.indexOf("outlook.office.com/mail") > -1) // outlook mail
         {
@@ -82,6 +82,14 @@ window.addEventListener('load', function()
 //------------------------------------------------------------------------------------------------------------------
 function fixOutLookCalendar()
 {
+
+    /*const element = document.querySelector('[class="customScrollBar"]');
+    if (element)
+    {
+        element.style.zoom = '1.3';
+    }*/
+    try { document.getElementsByClassName("allDayHeaderContent")[0].style.zoom = "1.3"; }catch(e){}
+    try{ document.querySelector('div[role="main"]').style.zoom = "0.65"; }catch(e){}
     try{ document.querySelector('div[role="main"]').style.zoom = "0.65"; }catch(e){}
     try{ document.querySelector('div[role="main"]').parentNode.style.height = "calc(100% + 45px)"; }catch(e){}
     try{ document.querySelector('div[role="main"]').parentNode.parentNode.style.height = "calc(100% + 45px)"; }catch(e){}
@@ -119,8 +127,11 @@ function fixOutLookMailThread()
     //console.log("fixOutLookMailThread");
     try
     {
-        document.getElementsByClassName("wide-content-host")[0].style.zoom = "1.4"; // openning email 1.2
-        document.getElementsByClassName("allowTextSelection")[0].style.zoom = "1.4"; // openning email 1.4 //also ConversationContainer ?
+        //document.getElementsByClassName("wide-content-host")[0].style.zoom = "1.4"; // openning email 1.2
+        //document.getElementsByClassName("allowTextSelection")[0].style.zoom = "1.4"; // openning email 1.4 //also ConversationContainer ?
+
+        document.querySelector('div[role="document"]').style.zoom = "1.4";
+
         //document.getElementById("editorParent_1").style.zoom = "1.4"
         //document.querySelector('div[role="main"]').style.marginTop = "-10px";
     }
