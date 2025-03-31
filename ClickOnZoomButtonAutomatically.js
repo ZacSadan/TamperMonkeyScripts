@@ -15,6 +15,7 @@ function clickLaunchMeetingButton()
   if (launchMeetingButton && launchMeetingButton.innerText == "Launch Meeting" )
   {
       launchMeetingButton.click();
+      console.log("Click on Zoom button automatically: clickLaunchMeetingButton");
   }
 }
 
