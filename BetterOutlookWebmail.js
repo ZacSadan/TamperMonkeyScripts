@@ -89,8 +89,8 @@ function fixOutLookCalendar()
         element.style.zoom = '1.3';
     }*/
     try { document.getElementsByClassName("allDayHeaderContent")[0].style.zoom = "1.3"; }catch(e){}
-    try{ document.querySelector('div[role="main"]').style.zoom = "0.65"; }catch(e){}
-    try{ document.querySelector('div[role="main"]').style.zoom = "0.65"; }catch(e){}
+    //try{ document.querySelector('div[role="main"]').style.zoom = "0.65"; }catch(e){}
+    try{ document.querySelector('div[role="main"]').style.zoom = "0.6"; }catch(e){}
     try{ document.querySelector('div[role="main"]').parentNode.style.height = "calc(100% + 45px)"; }catch(e){}
     try{ document.querySelector('div[role="main"]').parentNode.parentNode.style.height = "calc(100% + 45px)"; }catch(e){}
     try{ document.getElementById("leftPaneContainer").style.height ="calc(100% + 45px)" ; }catch(e){}
