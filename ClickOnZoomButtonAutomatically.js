@@ -10,9 +10,9 @@
 
 function clickLaunchMeetingButton()
 {
-  const launchMeetingButton = document.querySelector('div[role="button"]');
+  const launchMeetingButton = document.querySelector('button');
 
-  if (launchMeetingButton && launchMeetingButton.innerText == "Launch Meeting" )
+  if (launchMeetingButton && launchMeetingButton.innerText == "Join from Zoom Workplace app" )
   {
       launchMeetingButton.click();
       console.log("Click on Zoom button automatically: clickLaunchMeetingButton");
@@ -21,5 +21,6 @@ function clickLaunchMeetingButton()
 
 window.addEventListener('load', function()
 {
+    console.log("Click on Zoom button automatically");
     clickLaunchMeetingButton()
 }, false);
