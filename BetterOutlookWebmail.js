@@ -8,6 +8,8 @@
 // @match        https://outlook.office.com/mail/*
 // @match        https://outlook.office365.com/mail/*
 // @match        https://calendar.google.com/calendar/*
+// @match        https://outlook.cloud.microsoft/calendar/*
+// @match        https://outlook.cloud.microsoft/mail/*
 // @match        https://aaaaaaaaaaamail.google.com/*
 // @match        https://trello.com/b/*
 // @match        https://www.yad2.co.il/*
@@ -28,13 +30,13 @@ window.addEventListener('load', function()
     try
     {
         // OUTLOOK SECTION
-        if (window.location.href.indexOf("outlook.office.com/calendar") > -1)
+        if ( window.location.href.indexOf("outlook.office.com/calendar") > -1 || window.location.href.indexOf("outlook.cloud.microsoft/calendar") > -1)
         {
             fixOutLookCalendar();
             // refresh outlook calendar each 60 minutes , reload from server and not from cache ..
             setTimeout(function(){ location.reload(true) }, 60*60*1000); // dispatchEvent(new Event('load'))
         }
-        else if (window.location.href.indexOf("outlook.office.com/mail") > -1) // outlook mail
+        else if (window.location.href.indexOf("outlook.office.com/mail") > -1 ||window.location.href.indexOf("outlook.cloud.microsoft/mail") > -1 ) // outlook mail
         {
             document.getElementsByTagName("body")[0].style.zoom = "1.2";
             fixOutLookMailThread();
